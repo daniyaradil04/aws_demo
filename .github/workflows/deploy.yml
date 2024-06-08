@@ -37,5 +37,5 @@ jobs:
 #          script: whoami
 
       - name: Deploy application
-        run:  chmod 400 nnew.pem; ssh -ii nnew.pem ubuntu@3.79.113.22; yes;
-              "cd /home/ubuntu/aws_demo/; git pull origin main; mvn clean install; nohup mvn spring-boot:run -e -Dsolr.solr.home=./solr &"
+        run:  ssh -i nnew.pem ubuntu@3.79.113.22 "cd /home/ubuntu/aws_demo/; git pull origin main; mvn clean install; nohup mvn spring-boot:run -e -Dsolr.solr.home=./solr &"
+
