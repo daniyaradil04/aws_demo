@@ -13,6 +13,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Files list
+        run: ls
+
       - name: View key.pem contents
         run: cat /nnew.pem
 
