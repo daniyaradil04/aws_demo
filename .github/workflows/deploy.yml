@@ -13,14 +13,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install SSH client
-        run: sudo apt-get install -y openssh-client
+      - name: Files list
+        run: ls
 
-      - name: Deploy application
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: View key.pem contents
+        run: cat nnew.pem
+
+
+      - name: Install dependencies
         run: |
-          mkdir -p ~/.ssh
-          echo "${SSH_PRIVATE_KEY}" > ~/.ssh/id_rsa
-          chmod 600 nnew.pem
-          ssh -i nnew.pem ubuntu@3.79.113.22 "cd /home/ubuntu/aws_demo/; git pull origin main; mvn clean install; nohup mvn spring-boot:run -e -Dsolr.solr.home=./solr &"
+          sudo apt-get update -y
+          sudo apt-get install -y default-jdk maven git
+          git clone https://github.com/daniyaradil04/aws_demo
+          cd aws_demo/site
+          mvn clean install
