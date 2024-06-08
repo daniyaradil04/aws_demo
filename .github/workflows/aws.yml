@@ -13,14 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y default-jdk maven git
-          git clone https://github.com/daniyaradil04/aws_demo
-          cd aws_demo/site
-          mvn clean install
+#      - name: Install dependencies
+#        run: |
+#          sudo apt-get update -y
+#          sudo apt-get install -y default-jdk maven git
+#          git clone https://github.com/daniyaradil04/aws_demo
+#          cd aws_demo/site
+#          mvn clean install
 
       - name: Deploy application
         run: |
-          ssh -i path_to_your_key_pair/nnew.pem ec2-user@<instance_public_ip> "cd /path_to_your_application; git pull origin main; mvn clean install; nohup mvn spring-boot:run -e -Dsolr.solr.home=./solr &"
+          ssh -i nnew.pem ubuntu@3.79.113.22 "cd /home/ubuntu/aws_demo/; git pull origin main; mvn clean install; nohup mvn spring-boot:run -e -Dsolr.solr.home=./solr &"
