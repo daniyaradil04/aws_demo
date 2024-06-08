@@ -22,5 +22,5 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           echo "${SSH_PRIVATE_KEY}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@3.79.113.22 "cd /home/ubuntu/aws_demo/; git pull origin main; mvn clean install; nohup mvn spring-boot:run -e -Dsolr.solr.home=./solr &"
+          chmod 600 nnew.pem
+          ssh -i nnew.pem ubuntu@3.79.113.22 "cd /home/ubuntu/aws_demo/; git pull origin main; mvn clean install; nohup mvn spring-boot:run -e -Dsolr.solr.home=./solr &"
