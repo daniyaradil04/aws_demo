@@ -13,7 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-#      - name: Install dependencies
+      - name: View key.pem contents
+        run: cat path_to_your_key.pem
+
+
+      #      - name: Install dependencies
 #        run: |
 #          sudo apt-get update -y
 #          sudo apt-get install -y default-jdk maven git
