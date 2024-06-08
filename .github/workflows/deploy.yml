@@ -28,13 +28,13 @@ jobs:
 #          cd aws_demo/site
 #          mvn clean install
 
-      - name: SSH Remote Commands
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: 3.79.113.22
-          username: ubuntu
-          port: 22
-          script: whoami
+#      - name: SSH Remote Commands
+#        uses: appleboy/ssh-action@v1.0.3
+#        with:
+#          host: 3.79.113.22
+#          username: ubuntu
+#          port: 22
+#          script: whoami
 
       - name: Deploy application
         run:  |
