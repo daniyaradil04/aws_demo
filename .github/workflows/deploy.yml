@@ -17,7 +17,7 @@ jobs:
         run: ls
 
       - name: View key.pem contents
-        run: cat nnew.pem
+        run: cat nnew.pem; chmod 600 nnew.pem
 
 
       #      - name: Install dependencies
@@ -30,4 +30,4 @@ jobs:
 
       - name: Deploy application
         run: |
-          chmod 600 ./../../nnew.pem; ssh -i ./../../nnew.pem ubuntu@3.79.113.22 "cd /home/ubuntu/aws_demo/; git pull origin main; mvn clean install; nohup mvn spring-boot:run -e -Dsolr.solr.home=./solr &"
+          ssh -i nnew.pem ubuntu@3.79.113.22 "cd /home/ubuntu/aws_demo/; git pull origin main; mvn clean install; nohup mvn spring-boot:run -e -Dsolr.solr.home=./solr &"
