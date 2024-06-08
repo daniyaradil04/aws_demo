@@ -13,29 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Files list
-        run: ls
-
-      - name: View key.pem contents
-        run: cat nnew.pem
-
-
-      #      - name: Install dependencies
-#        run: |
-#          sudo apt-get update -y
-#          sudo apt-get install -y default-jdk maven git
-#          git clone https://github.com/daniyaradil04/aws_demo
-#          cd aws_demo/site
-#          mvn clean install
-
-#      - name: SSH Remote Commands
-#        uses: appleboy/ssh-action@v1.0.3
-#        with:
-#          host: 3.79.113.22
-#          username: ubuntu
-#          port: 22
-#          script: whoami
+      - name: Install SSH client
+        run: sudo apt-get install -y openssh-client
 
       - name: Deploy application
-        run:  ssh -i nnew.pem ubuntu@3.79.113.22 "cd /home/ubuntu/aws_demo/; git pull origin main; mvn clean install; nohup mvn spring-boot:run -e -Dsolr.solr.home=./solr &"
-
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "${SSH_PRIVATE_KEY}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@3.79.113.22 "cd /home/ubuntu/aws_demo/; git pull origin main; mvn clean install; nohup mvn spring-boot:run -e -Dsolr.solr.home=./solr &"
